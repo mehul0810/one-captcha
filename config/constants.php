@@ -19,7 +19,7 @@ if ( ! defined( 'ONECAPTCHA_VERSION' ) ) {
 
 // Define plugin root File.
 if ( ! defined( 'ONECAPTCHA_PLUGIN_FILE' ) ) {
-	define( 'ONECAPTCHA_PLUGIN_FILE', dirname( dirname( __FILE__ ) ) . '/one-captcha.php' );
+	define( 'ONECAPTCHA_PLUGIN_FILE', dirname( dirname( __FILE__ ) ) . '/onecaptcha.php' );
 }
 
 // Define plugin basename.
