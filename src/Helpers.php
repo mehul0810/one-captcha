@@ -140,27 +140,33 @@ class Helpers {
 		ob_start();
 		$service_key    = sanitize_key( $service );
 		$service_fields = self::get_service_fields();
-
+		$credentials    = self::get_settings()['credentials'] ?? [];
 		?>
 		<div class="onecaptcha-group-fields <?php echo esc_attr( "onecaptcha-{$service_key}-group" ); ?>">
-		<?php
-		foreach ( $service_fields[ $service ] as $slug => $fields ) {
-			$label       = $fields['label'] ?? '';
-			$type        = $fields['type'] ?? 'text';
-			$description = $fields['desc'] ?? '';
-			?>
-			<div class="onecaptcha-field">
-				<label class="onecaptcha-field-label" for="<?php echo esc_html( $label ); ?>">
-					<?php echo esc_html( $label ); ?>
-				</label>
-				<input type="<?php echo esc_html( $type ); ?>" name="onecaptcha_settings[credentials][<?php echo esc_attr( $service ); ?>][<?php echo esc_attr( $slug ); ?>]" value="" class="onecaptcha-field-input"/>
-				<p class="onecaptcha-field-description">
-					<?php echo esc_html( $description ); ?>
-				</p>
-			</div>
 			<?php
-		}
-		?>
+			foreach ( $service_fields[ $service ] as $slug => $fields ) {
+				$label       = $fields['label'] ?? '';
+				$type        = $fields['type'] ?? 'text';
+				$description = $fields['desc'] ?? '';
+				$value	     = $credentials[ $service ][ $slug ] ?? '';
+				?>
+				<div class="onecaptcha-field">
+					<label class="onecaptcha-field-label" for="<?php echo esc_html( $label ); ?>">
+						<?php echo esc_html( $label ); ?>
+					</label>
+					<input
+						type="<?php echo esc_html( $type ); ?>"
+						name="onecaptcha_settings[credentials][<?php echo esc_attr( $service ); ?>][<?php echo esc_attr( $slug ); ?>]"
+						value="<?php echo esc_html( $value ); ?>"
+						class="onecaptcha-field-input"
+					/>
+					<p class="onecaptcha-field-description">
+						<?php echo esc_html( $description ); ?>
+					</p>
+				</div>
+				<?php
+			}
+			?>
 		</div>
 		<?php
 		return ob_get_clean();

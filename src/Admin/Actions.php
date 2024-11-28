@@ -119,7 +119,8 @@ class Actions {
 	 * @return void
 	 */
 	public function register_assets() {
-		wp_enqueue_style( 'one-captcha-admin', ONECAPTCHA_PLUGIN_URL . 'assets/dist/css/admin.css', [], ONECAPTCHA_VERSION );
+		wp_enqueue_style( 'onecaptcha-admin', ONECAPTCHA_PLUGIN_URL . 'assets/dist/css/admin.css', [], ONECAPTCHA_VERSION );
+		wp_enqueue_script( 'onecaptcha-admin', ONECAPTCHA_PLUGIN_URL . 'assets/dist/js/admin.min.js', [], ONECAPTCHA_VERSION, true );
 	}
 
 	/**
@@ -131,11 +132,15 @@ class Actions {
 	 * @return void
 	 */
 	public function register_settings() {
+		$selected_service = $this->settings['service'] ?? 'cloudflare-turnstile';
+
 		// Register Settings.
 		register_setting(
 			'onecaptcha_settings_group',
 			'onecaptcha_settings',
-			'onecaptcha_sanitize_settings'
+			[
+				'sanitize_callback' => [ $this, 'onecaptcha_sanitize_settings' ],
+			]
 		);
 
 		// Add Settings Section.
@@ -157,6 +162,8 @@ class Actions {
 
 		// Loop through each captcha service and generate fields based on that.
 		foreach ( $this->services as $key => $value ) {
+			$active_class = ( $selected_service === $key ) ? 'active' : '';
+
 			add_settings_field(
 				"onecaptcha_{$key}_fields_group",
 				$value,
@@ -164,7 +171,7 @@ class Actions {
 				'onecaptcha_settings',
 				'onecaptcha_main_section',
 				[
-					'class' => "onecaptcha-fields-group onecaptcha-{$key}-fields-group",
+					'class' => "onecaptcha-fields-group onecaptcha-{$key}-fields-group {$active_class}",
 				]
 			);
 		}
@@ -236,19 +243,22 @@ class Actions {
 	 * Sanitize settings
 	 */
 	public function onecaptcha_sanitize_settings($input) {
-		// Initialize an empty array to store the sanitized values.
 		$output = [];
 
-		// Loop through each of the settings fields.
-		foreach ($this->service_fields as $key => $value) {
-			// Check if the input field is set.
-			if (isset($input[$key])) {
-				// Sanitize the input field.
-				$output[$key] = sanitize_text_field($input[$key]);
+		// Sanitize service.
+		$output['service'] = sanitize_text_field($input['service'] ?? 'cloudflare-turnstile');
+
+		// Sanitize credentials.
+		$output['credentials'] = [];
+		if (isset($input['credentials']) && is_array($input['credentials'])) {
+			foreach ($input['credentials'] as $type => $keys) {
+				$output['credentials'][$type] = [
+					'site_key' => sanitize_text_field($keys['site_key'] ?? ''),
+					'secret_key' => sanitize_text_field($keys['secret_key'] ?? ''),
+				];
 			}
 		}
 
-		// Return the output array.
 		return $output;
 	}
 }
