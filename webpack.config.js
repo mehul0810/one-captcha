@@ -10,7 +10,7 @@ const mode = inProduction ? 'production' : 'development';
 const config = {
 	mode,
 	entry: {
-		admin: [ './assets/src/scss/admin.scss' ],
+		admin: [ './assets/src/scss/admin.scss', './assets/src/js/admin.js' ],
 	},
 	output: {
 		path: path.join(__dirname, 'assets/dist/'),
