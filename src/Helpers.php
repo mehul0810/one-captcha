@@ -7,7 +7,7 @@
  * @since      1.0.0
  */
 
-namespace OneCaptcha;
+namespace MG\OneCaptcha;
 
 // Bailout, if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -50,8 +50,8 @@ class Helpers {
 		return apply_filters(
 			'onecaptcha_get_services',
 			[
-				'cloudflare-turnstile' => 'Cloudflare Turnstile',
-				'google-recaptcha'     => 'Google ReCaptcha',
+				'cloudflare_turnstile' => 'Cloudflare Turnstile',
+				'google_recaptcha'     => 'Google ReCaptcha',
 				'hcaptcha'             => 'hCaptcha',
 			]
 		);
@@ -78,37 +78,91 @@ class Helpers {
 		return apply_filters(
 			'onecaptcha_get_service_fields',
 			[
-				'cloudflare-turnstile' => [
+				'cloudflare_turnstile' => [
 					'site_key' => [
 						'label' => esc_html__( 'Site Key', 'onecaptcha' ),
 						'type'  => 'text',
+						'slug'  => 'site_key',
+						'desc'  => esc_html__( 'The site key is used to identify your website to the captcha service.', 'onecaptcha' ),
 					],
 					'secret_key'  => [
 						'label' => esc_html( 'Secret Key', 'onecaptcha' ),
 						'type'  => 'password',
+						'slug'  => 'secret_key',
+						'desc'  => esc_html__( 'The site key is used to identify your website to the captcha service.', 'onecaptcha' ),
 					],
 				],
-				'google-recaptcha'     => [
+				'google_recaptcha'     => [
 					'site_key' => [
 						'label' => esc_html__( 'Site Key', 'onecaptcha' ),
 						'type'  => 'text',
+						'slug'  => 'site_key',
+						'desc'  => esc_html__( 'The site key is used to identify your website to the captcha service.', 'onecaptcha' ),
 					],
 					'secret_key'   => [
 						'label' => esc_html__( 'Secret Key', 'onecaptcha' ),
 						'type'  => 'password',
+						'slug'  => 'secret_key',
+						'desc'  => esc_html__( 'The site key is used to identify your website to the captcha service.', 'onecaptcha' ),
 					],
 				],
 				'hcaptcha'             => [
 					'site_key' => [
 						'label' => esc_html( 'Site Key', 'onecaptcha' ),
 						'type'  => 'text',
+						'slug'  => 'site_key',
+						'desc'  => esc_html__( 'The site key is used to identify your website to the captcha service.', 'onecaptcha' ),
 					],
 					'secret_key'   => [
 						'label' => esc_html__( 'Secret Key', 'onecaptcha' ),
 						'type'  => 'password',
+						'slug'  => 'secret_key',
+						'desc'  => esc_html__( 'The site key is used to identify your website to the captcha service.', 'onecaptcha' ),
 					],
 				],
 			]
 		);
+	}
+
+	/**
+	 * Display Settings Field.
+	 *
+	 * @param string $service Service.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 *
+	 * @static
+	 *
+	 * @return mixed
+	 */
+	public static function display_settings_field( $service ) {
+		ob_start();
+		$service_key    = sanitize_key( $service );
+		$service_fields = self::get_service_fields();
+
+		?>
+		<div class="onecaptcha-group-fields <?php echo esc_attr( "onecaptcha-{$service_key}-group" ); ?>">
+		<?php
+		foreach ( $service_fields[ $service ] as $slug => $fields ) {
+			$label       = $fields['label'] ?? '';
+			$type        = $fields['type'] ?? 'text';
+			$description = $fields['desc'] ?? '';
+			?>
+			<div class="onecaptcha-field">
+				<label class="onecaptcha-field-label" for="<?php echo esc_html( $label ); ?>">
+					<?php echo esc_html( $label ); ?>
+				</label>
+				<input type="<?php echo esc_html( $type ); ?>" name="onecaptcha_settings[credentials][<?php echo esc_attr( $service ); ?>][<?php echo esc_attr( $slug ); ?>]" value="" class="onecaptcha-field-input"/>
+				<p class="onecaptcha-field-description">
+					<?php echo esc_html( $description ); ?>
+				</p>
+			</div>
+			<?php
+		}
+		?>
+		</div>
+		<?php
+		return ob_get_clean();
 	}
 }

@@ -9,6 +9,8 @@
 
 namespace MG\OneCaptcha\Admin;
 
+use MG\OneCaptcha\Helpers;
+
 // Bailout, if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
@@ -22,9 +24,15 @@ class Actions {
      * @access public
      */
     public function __construct() {
+		// Setup some variables.
+		$this->settings       = Helpers::get_settings();
+		$this->services       = Helpers::get_services();
+		$this->service_fields = Helpers::get_service_fields();
+
         add_action( 'in_admin_header', [ $this, 'add_settings_header' ] );
 		add_action( 'admin_menu', [ $this, 'add_settings_page' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'register_assets' ] );
+		add_action( 'admin_init', [ $this, 'register_settings' ] );
     }
 
 	public function add_settings_header() {
@@ -86,15 +94,12 @@ class Actions {
 	 */
 	public function render_admin_page() {
 		?>
-		<div class="onecaptcha-navigation">
-			<h1><?php esc_html_e( 'Settings', 'onecaptcha' ); ?></h1>
-		</div>
 		<div class="onecaptcha-main">
 			<div class="onecaptcha-content">
 				<form method="post" action="options.php">
 					<?php
-					settings_fields( 'one_captcha_settings' );
-					do_settings_sections( 'one_captcha_settings' );
+					settings_fields( 'onecaptcha_settings_group' );
+					do_settings_sections( 'onecaptcha_settings' );
 					submit_button();
 					?>
 				</form>
@@ -115,5 +120,135 @@ class Actions {
 	 */
 	public function register_assets() {
 		wp_enqueue_style( 'one-captcha-admin', ONECAPTCHA_PLUGIN_URL . 'assets/dist/css/admin.css', [], ONECAPTCHA_VERSION );
+	}
+
+	/**
+	 * Register admin settings.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 *
+	 * @return void
+	 */
+	public function register_settings() {
+		// Register Settings.
+		register_setting(
+			'onecaptcha_settings_group',
+			'onecaptcha_settings',
+			'onecaptcha_sanitize_settings'
+		);
+
+		// Add Settings Section.
+		add_settings_section(
+			'onecaptcha_main_section',
+			esc_html__( 'Captcha Settings', 'onecaptcha' ),
+			[ $this, 'onecaptcha_settings_section_callback' ],
+			'onecaptcha_settings'
+		);
+
+		// Add `Captcha Service` field.
+		add_settings_field(
+			'onecaptcha_captcha_service',
+			'Captcha Service',
+			[ $this, 'onecaptcha_captcha_service_callback' ],
+			'onecaptcha_settings',
+			'onecaptcha_main_section'
+		);
+
+		// Loop through each captcha service and generate fields based on that.
+		foreach ( $this->services as $key => $value ) {
+			add_settings_field(
+				"onecaptcha_{$key}_fields_group",
+				$value,
+				[ $this, "onecaptcha_{$key}_fields_group_callback" ],
+				'onecaptcha_settings',
+				'onecaptcha_main_section',
+				[
+					'class' => "onecaptcha-fields-group onecaptcha-{$key}-fields-group",
+				]
+			);
+		}
+	}
+
+	/**
+	 * Section callback
+	 */
+	public function onecaptcha_settings_section_callback() {
+		?>
+		<h4>
+			<?php esc_html_e( 'Welcome to OneCaptcha — Your All-in-One Captcha Solution!', 'onecaptcha' ); ?>
+		</h4>
+		<p>
+			<?php esc_html_e( 'OneCaptcha empowers you to protect your WordPress site against spam and bots by integrating seamlessly with a wide range of captcha services, including Cloudflare Turnstile, Google ReCaptcha, and hCaptcha. With OneCaptcha, you can safeguard common spam-prone areas across your website, whether you’re using contact forms, comments, login pages, or other plugins that require bot protection.', 'onecaptcha' ); ?>
+		</p>
+		<?php
+	}
+
+	/**
+	 * Dropdown field callback
+	 */
+	public function onecaptcha_captcha_service_callback() {
+		$service = $this->settings['service'] ?? 'cloudflare-turnstile';
+		?>
+		<select name="onecaptcha_settings[service]" id="onecaptcha-service">
+			<?php
+			foreach ( $this->services as $key => $value ) {
+				?>
+				<option value="<?php echo esc_attr( $key ); ?>" <?php selected( $service, $key ); ?>>
+					<?php echo esc_html( $value ); ?>
+				</option>
+				<?php
+			}
+			?>
+		</select>
+		<?php
+	}
+
+	/**
+	 * Site Key field callback
+	 */
+	public function onecaptcha_cloudflare_turnstile_fields_group_callback() {
+		echo Helpers::display_settings_field( 'cloudflare_turnstile' );
+	}
+
+
+
+	/**
+	 * Site Key field callback
+	 */
+	public function onecaptcha_google_recaptcha_fields_group_callback() {
+		echo Helpers::display_settings_field( 'google_recaptcha' );
+	}
+
+	/**
+	 * hCaptcha field group callback
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 *
+	 * @return mixed
+	 */
+	public function onecaptcha_hcaptcha_fields_group_callback() {
+		echo Helpers::display_settings_field( 'hcaptcha' );
+	}
+
+	/**
+	 * Sanitize settings
+	 */
+	public function onecaptcha_sanitize_settings($input) {
+		// Initialize an empty array to store the sanitized values.
+		$output = [];
+
+		// Loop through each of the settings fields.
+		foreach ($this->service_fields as $key => $value) {
+			// Check if the input field is set.
+			if (isset($input[$key])) {
+				// Sanitize the input field.
+				$output[$key] = sanitize_text_field($input[$key]);
+			}
+		}
+
+		// Return the output array.
+		return $output;
 	}
 }
