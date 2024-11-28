@@ -171,4 +171,21 @@ class Helpers {
 		<?php
 		return ob_get_clean();
 	}
+
+	/**
+	 * Get Active Service Credentials.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 *
+	 * @return array
+	 */
+	public static function get_active_service_credentials() {
+		$settings        = self::get_settings();
+		$active_service  = $settings['service'] ?? 'cloudflare_turnstile';
+		$credentials     = $settings['credentials'] ?? [];
+
+		// Return credentials for an active service.
+		return $credentials[ $active_service ] ?? [];
+	}
 }
