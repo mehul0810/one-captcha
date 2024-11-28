@@ -21,8 +21,19 @@
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+namespace MG\OneCaptcha;
+
 // Bailout, if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
+// Load Constants.
+require_once __DIR__ . '/config/constants.php';
+
+// Automatically loads files used throughout the plugin.
+require_once 'vendor/autoload.php';
+
+// Initialize the plugin.
+$plugin = new Plugin();
+$plugin->register();
