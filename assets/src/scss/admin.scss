@@ -1,3 +1,20 @@
 .onecaptcha-header {
+	display: flex;
 	background-color: #ffffff;
+	margin-left: -20px;
+	padding: 0 15px;
+
+	.onecaptcha-extra {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		.onecaptcha-version {
+			padding: 5px 10px;
+			background-color: #f1f1f1;
+			color: #000000;
+			border-radius: 5px;
+			border: 1px solid #fcfcfc;
+		}
+	}
 }
