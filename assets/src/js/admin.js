@@ -1,18 +1,17 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const captchaTypeDropdown = document.querySelector('#onecaptcha_captcha_type');
-    const siteKeyField = document.querySelector('#onecaptcha_site_key');
-    const secretKeyField = document.querySelector('#onecaptcha_secret_key');
+	const service = document.getElementById('onecaptcha-service');
 
-    if (captchaTypeDropdown && siteKeyField && secretKeyField) {
-        captchaTypeDropdown.addEventListener('change', function () {
-            const selectedType = this.value;
+	service.addEventListener('change', function ( event ) {
+		const selectedService = event.target.value;
+		const serviceFieldsGroup = document.querySelectorAll('.onecaptcha-fields-group');
 
-            // Update the `name` attributes based on the selected type
-            siteKeyField.setAttribute('name', `onecaptcha_settings[${selectedType}_site_key]`);
-            secretKeyField.setAttribute('name', `onecaptcha_settings[${selectedType}_secret_key]`);
-        });
+		Array.from(serviceFieldsGroup).forEach(function ( fieldGroup ) {
+			// Set all the displayed fields group to none.
+			fieldGroup.classList.remove('active');
 
-        // Trigger change event on page load to set initial values
-        captchaTypeDropdown.dispatchEvent(new Event('change'));
-    }
+			// Set the selected service fields group to display.
+			document.querySelector( `.onecaptcha-${selectedService}-fields-group` ).classList.add( 'active' );
+		});
+	});
+
 });
