@@ -76,17 +76,31 @@ class Actions {
 		);
 	}
 
+	/**
+	 * Render admin page.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 *
+	 * @return mixed
+	 */
 	public function render_admin_page() {
 		?>
-		<div class="wrap">
-			<h1><?php esc_html_e( 'One Captcha', 'onecaptcha' ); ?></h1>
-			<form method="post" action="options.php">
-				<?php
-				settings_fields( 'one_captcha_settings' );
-				do_settings_sections( 'one_captcha_settings' );
-				submit_button();
-				?>
-			</form>
+		<div class="onecaptcha-navigation">
+			<h1><?php esc_html_e( 'Settings', 'onecaptcha' ); ?></h1>
+		</div>
+		<div class="onecaptcha-main">
+			<div class="onecaptcha-content">
+				<form method="post" action="options.php">
+					<?php
+					settings_fields( 'one_captcha_settings' );
+					do_settings_sections( 'one_captcha_settings' );
+					submit_button();
+					?>
+				</form>
+			</div>
+			<div class="onecaptcha-sidebar">
+			</div>
 		</div>
 		<?php
 	}
