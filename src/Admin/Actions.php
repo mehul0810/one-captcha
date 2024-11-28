@@ -24,6 +24,7 @@ class Actions {
     public function __construct() {
         add_action( 'in_admin_header', [ $this, 'add_settings_header' ] );
 		add_action( 'admin_menu', [ $this, 'add_settings_page' ] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'register_assets' ] );
     }
 
 	public function add_settings_header() {
@@ -93,5 +94,17 @@ class Actions {
 			</form>
 		</div>
 		<?php
+	}
+
+	/**
+	 * Register Admin Assets.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 *
+	 * @return void
+	 */
+	public function register_assets() {
+		wp_enqueue_style( 'one-captcha-admin', ONECAPTCHA_PLUGIN_URL . 'assets/dist/css/admin.css', [], ONECAPTCHA_VERSION );
 	}
 }
