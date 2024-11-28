@@ -38,12 +38,12 @@ class Filters {
 		$new_actions = [
 			'settings' => sprintf(
 				'<a href="%1$s">%2$s</a>',
-				admin_url( '' ),
+				admin_url( 'options-general.php?page=onecaptcha' ),
 				esc_html__( 'Settings', 'onecaptcha' )
 			),
 			'support'  => sprintf(
 				'<a target="_blank" href="%1$s">%2$s</a>',
-				esc_url_raw( 'https://wordpress.org/support/plugin/one-captcha/' ),
+				esc_url_raw( 'https://wordpress.org/support/plugin/onecaptcha/' ),
 				esc_html__( 'Support', 'onecaptcha' )
 			),
 		];
