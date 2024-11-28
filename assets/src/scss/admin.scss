@@ -18,15 +18,52 @@
 		}
 	}
 }
-
-.onecaptcha-navigation {
-	background: #ffffff;
-	display: block;
+.onecaptcha-main {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 20px;
+	flex-direction: row; /* Default: Horizontal layout */
+  	gap: 20px;
 	width: 100%;
-	margin-left: -20px;
-	padding: 5px 20px;
-	border-top: 2px solid #f1f1f1;
 
-}
-.onecaptcha-content {
+	.onecaptcha-content {
+		background-color: #ffffff;
+		padding: 0 20px;
+		width: 75%;
+
+		.onecaptcha-fields-group {
+			display: none;
+
+			&.active {
+				display: table-row;
+			}
+
+			.onecaptcha-field{
+				margin-bottom: 20px;
+
+				.onecaptcha-field-label {
+					display: block;
+					font-weight: bold;
+					margin-bottom: 5px;
+				}
+
+				.onecaptcha-field-input {
+					margin-bottom: 5px;
+					width: 100%;
+				}
+
+				.onecaptcha-field-description {
+					font-style: italic;
+					margin-bottom: 5px;
+				}
+			}
+		}
+	}
+
+	.onecaptcha-sidebar {
+		width: 25%;
+		background-color: #ffffff;
+		margin-right: 20px;
+		padding: 20px;
+	}
 }
