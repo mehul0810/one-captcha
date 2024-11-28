@@ -28,3 +28,8 @@ if ( ! defined( 'ONECAPTCHA_PLUGIN_DIR' ) ) {
 if ( ! defined( 'ONECAPTCHA_PLUGIN_URL' ) ) {
 	define( 'ONECAPTCHA_PLUGIN_URL', plugin_dir_url( ONECAPTCHA_PLUGIN_FILE ) );
 }
+
+// Define plugin directory URL.
+if ( ! defined( 'ONECAPTCHA_PLUGIN_SUPPORT_URL' ) ) {
+	define( 'ONECAPTCHA_PLUGIN_SUPPORT_URL', 'https://wordpress.org/' );
+}
