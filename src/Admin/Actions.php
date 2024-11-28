@@ -35,6 +35,14 @@ class Actions {
 		add_action( 'admin_init', [ $this, 'register_settings' ] );
     }
 
+	/**
+	 * Add Settings Page Header.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 *
+	 * @return mixed
+	 */
 	public function add_settings_header() {
 		$logo_svg = '<svg xmlns="http://www.w3.org/2000/svg" width="240" height="60" viewBox="0 0 693 140" fill="none">
 		<g clip-path="url(#clip0_706_2)">
@@ -78,7 +86,7 @@ class Actions {
 			esc_html__( 'OneCaptcha', 'onecaptcha' ),
 			esc_html__( 'OneCaptcha', 'onecaptcha' ),
 			'manage_options',
-			'one-captcha',
+			'onecaptcha',
 			[ $this, 'render_admin_page' ],
 			99
 		);
