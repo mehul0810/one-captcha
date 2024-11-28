@@ -2,9 +2,9 @@
 /**
  * OneCaptcha | Frontend Filters.
  *
- * @package WordPress
+ * @package    WordPress
  * @subpackage OneCaptcha
- * @since 1.0.0
+ * @since      1.0.0
  */
 
 namespace MG\OneCaptcha\Includes;
