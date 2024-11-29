@@ -9,6 +9,8 @@
 
 namespace MG\OneCaptcha\Includes;
 
+use MG\OneCaptcha\Helpers;
+
 // Bailout, if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
@@ -31,7 +33,7 @@ class Actions {
 		// Load API script based on active service.
 		if ( 'cloudflare_turnstile' === $active_service ) {
 			// Load Cloudflare Turnstile API script.
-			wp_enqueue_script( 'onecaptcha-clouflare-turnstile-api', 'https://challenges.cloudflare.com/turnstile/v0/api.js', [], ONECAPTCHA_VERSION, true );
+			wp_enqueue_script( 'onecaptcha-clouflare-turnstile-api', 'https://challenges.cloudflare.com/turnstile/v0/api.js', [], ONECAPTCHA_VERSION, false );
 		}
 	}
 }
