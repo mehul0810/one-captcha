@@ -195,9 +195,11 @@ class Helpers {
 	 * @since  1.0.0
 	 * @access public
 	 *
+	 * @static
+	 *
 	 * @return string
 	 */
-	public function get_active_service() : string {
+	public static function get_active_service() : string {
 		// Get OneCaptcha Settings.
 		$settings = self::get_settings();
 
@@ -211,9 +213,11 @@ class Helpers {
 	 * @since  1.0.0
 	 * @access public
 	 *
+	 * @static
+	 *
 	 * @return string
 	 */
-	public function get_default_service() : string {
+	public static function get_default_service() : string {
 		return 'cloudflare_turnstile';
 	}
 }
