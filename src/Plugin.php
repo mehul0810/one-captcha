@@ -9,8 +9,9 @@
 
 namespace MG\OneCaptcha;
 
-use MG\OneCaptcha\Includes as Includes;
-use MG\OneCaptcha\Admin as Admin;
+use MG\OneCaptcha\Includes;
+use MG\OneCaptcha\Admin;
+use MG\OneCaptcha\Modules;
 
 // Bailout, if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -61,6 +62,9 @@ final class Plugin {
 		// Load Frontend Files.
 		new Includes\Actions();
 		new Includes\Filters();
+
+		// Load Modules.
+		new Modules\Core\CommentForm();
 	}
 
 	/**
