@@ -182,11 +182,38 @@ class Helpers {
 	 * @return array
 	 */
 	public static function get_active_service_credentials() {
-		$settings        = self::get_settings();
-		$active_service  = $settings['service'] ?? 'cloudflare_turnstile';
-		$credentials     = $settings['credentials'] ?? [];
+		$active_service = self::get_active_service();
+		$credentials    = $settings['credentials'] ?? [];
 
 		// Return credentials for an active service.
 		return $credentials[ $active_service ] ?? [];
+	}
+
+	/**
+	 * Get Active Service.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 *
+	 * @return string
+	 */
+	public function get_active_service() : string {
+		// Get OneCaptcha Settings.
+		$settings = self::get_settings();
+
+		// Return active service.
+		return $settings['service'] ?? self::get_default_service();
+	}
+
+	/**
+	 * Get Default Service.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 *
+	 * @return string
+	 */
+	public function get_default_service() : string {
+		return 'cloudflare_turnstile';
 	}
 }
