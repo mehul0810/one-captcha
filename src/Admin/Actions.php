@@ -17,6 +17,36 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class Actions {
+	/**
+	 * OneCaptcha Settings.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 *
+	 * @var array<string, mixed>
+	 */
+	public array $settings = [];
+
+	/**
+	 * OneCaptch Services.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 *
+	 * @var array<string, mixed>
+	 */
+	public array $services = [];
+
+	/**
+	 * Service Fields.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 *
+	 * @var array<string, mixed>
+	 */
+	public array $service_fields = [];
+
     /**
      * Constructor.
      *
@@ -41,9 +71,9 @@ class Actions {
 	 * @since  1.0.0
 	 * @access public
 	 *
-	 * @return mixed
+	 * @return void
 	 */
-	public function add_settings_header() {
+	public function add_settings_header() : void {
 		$logo_svg = '<svg xmlns="http://www.w3.org/2000/svg" width="240" height="60" viewBox="0 0 693 140" fill="none">
 		<g clip-path="url(#clip0_706_2)">
 		<rect width="693" height="140" fill="white"/>
@@ -139,7 +169,7 @@ class Actions {
 	 *
 	 * @return void
 	 */
-	public function register_settings() {
+	public function register_settings() :void {
 		$selected_service = $this->settings['service'] ?? 'cloudflare-turnstile';
 
 		// Register Settings.
@@ -187,8 +217,13 @@ class Actions {
 
 	/**
 	 * Section callback
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 *
+	 * @return void
 	 */
-	public function onecaptcha_settings_section_callback() {
+	public function onecaptcha_settings_section_callback() : void {
 		?>
 		<h4>
 			<?php esc_html_e( 'Welcome to OneCaptcha — Your All-in-One Captcha Solution!', 'onecaptcha' ); ?>
@@ -201,8 +236,13 @@ class Actions {
 
 	/**
 	 * Dropdown field callback
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 *
+	 * @return void
 	 */
-	public function onecaptcha_captcha_service_callback() {
+	public function onecaptcha_captcha_service_callback() : void {
 		$service = $this->settings['service'] ?? 'cloudflare-turnstile';
 		?>
 		<select name="onecaptcha_settings[service]" id="onecaptcha-service">
@@ -220,18 +260,26 @@ class Actions {
 	}
 
 	/**
-	 * Site Key field callback
+	 * Cloudflare Turnstile field group callback
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 *
+	 * @return void
 	 */
-	public function onecaptcha_cloudflare_turnstile_fields_group_callback() {
+	public function onecaptcha_cloudflare_turnstile_fields_group_callback() : void {
 		echo Helpers::display_settings_field( 'cloudflare_turnstile' );
 	}
 
-
-
 	/**
-	 * Site Key field callback
+	 * Google ReCaptcha field group callback
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 *
+	 * @return void
 	 */
-	public function onecaptcha_google_recaptcha_fields_group_callback() {
+	public function onecaptcha_google_recaptcha_fields_group_callback() : void {
 		echo Helpers::display_settings_field( 'google_recaptcha' );
 	}
 
@@ -241,28 +289,35 @@ class Actions {
 	 * @since  1.0.0
 	 * @access public
 	 *
-	 * @return mixed
+	 * @return void
 	 */
-	public function onecaptcha_hcaptcha_fields_group_callback() {
+	public function onecaptcha_hcaptcha_fields_group_callback() : void {
 		echo Helpers::display_settings_field( 'hcaptcha' );
 	}
 
 	/**
-	 * Sanitize settings
+	 * Sanitize settings.
+	 *
+	 * @param array $input Input data.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 *
+	 * @return array
 	 */
-	public function onecaptcha_sanitize_settings($input) {
+	public function onecaptcha_sanitize_settings( array $input ) : array {
 		$output = [];
 
 		// Sanitize service.
-		$output['service'] = sanitize_text_field($input['service'] ?? 'cloudflare-turnstile');
+		$output['service'] = sanitize_text_field( $input['service'] ?? 'cloudflare-turnstile' );
 
 		// Sanitize credentials.
 		$output['credentials'] = [];
-		if (isset($input['credentials']) && is_array($input['credentials'])) {
-			foreach ($input['credentials'] as $type => $keys) {
+		if ( isset( $input['credentials'] ) && is_array( $input['credentials'] ) ) {
+			foreach ( $input['credentials'] as $type => $keys ) {
 				$output['credentials'][$type] = [
-					'site_key' => sanitize_text_field($keys['site_key'] ?? ''),
-					'secret_key' => sanitize_text_field($keys['secret_key'] ?? ''),
+					'site_key'   => sanitize_text_field( $keys['site_key'] ?? '' ),
+					'secret_key' => sanitize_text_field( $keys['secret_key'] ?? '' ),
 				];
 			}
 		}

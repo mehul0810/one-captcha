@@ -23,10 +23,10 @@ class Helpers {
 	 *
 	 * @static
 	 *
-	 * @return string
+	 * @return array
 	 */
-	public static function get_settings() {
-		return get_option( 'onecaptcha_settings' );
+	public static function get_settings() : array {
+		return get_option( 'onecaptcha_settings', [] );
 	}
 
 	/**
@@ -65,9 +65,9 @@ class Helpers {
 	 *
 	 * @static
 	 *
-	 * @return void
+	 * @return array
 	 */
-	public static function get_service_fields() {
+	public static function get_service_fields() : array {
 		/**
 		 * This filter is used to update the list of supported captcha services.
 		 *
@@ -86,7 +86,7 @@ class Helpers {
 						'desc'  => esc_html__( 'The site key is used to identify your website to the captcha service.', 'onecaptcha' ),
 					],
 					'secret_key'  => [
-						'label' => esc_html( 'Secret Key', 'onecaptcha' ),
+						'label' => esc_html__( 'Secret Key', 'onecaptcha' ),
 						'type'  => 'password',
 						'slug'  => 'secret_key',
 						'desc'  => esc_html__( 'The site key is used to identify your website to the captcha service.', 'onecaptcha' ),
@@ -108,7 +108,7 @@ class Helpers {
 				],
 				'hcaptcha'             => [
 					'site_key' => [
-						'label' => esc_html( 'Site Key', 'onecaptcha' ),
+						'label' => esc_html__( 'Site Key', 'onecaptcha' ),
 						'type'  => 'text',
 						'slug'  => 'site_key',
 						'desc'  => esc_html__( 'The site key is used to identify your website to the captcha service.', 'onecaptcha' ),
@@ -136,11 +136,12 @@ class Helpers {
 	 *
 	 * @return mixed
 	 */
-	public static function display_settings_field( $service ) {
+	public static function display_settings_field( string $service ) : mixed {
 		ob_start();
 		$service_key    = sanitize_key( $service );
 		$service_fields = self::get_service_fields();
-		$credentials    = self::get_settings()['credentials'] ?? [];
+		$settings       = self::get_settings();
+		$credentials    = $settings['credentials'] ?? [];
 		?>
 		<div class="onecaptcha-group-fields <?php echo esc_attr( "onecaptcha-{$service_key}-group" ); ?>">
 			<?php

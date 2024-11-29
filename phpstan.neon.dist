@@ -5,6 +5,9 @@ parameters:
   excludePaths:
     - vendor
     - tests
+    - node_modules
+  bootstrapFiles:
+    - config/constants.php
   checkGenericClassInNonGenericObjectType: false
   ignoreErrors:
     - '#Method [a-zA-Z0-9\\_\:\(\)]+ return type has no value type specified in iterable type array.#'
