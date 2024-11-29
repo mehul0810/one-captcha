@@ -65,6 +65,8 @@ final class Plugin {
 
 		// Load Modules.
 		new Modules\Core\CommentForm();
+		new Modules\Core\LoginForm();
+		new Modules\Core\RegisterForm();
 	}
 
 	/**
