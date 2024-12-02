@@ -66,15 +66,20 @@ class CommentForm extends ModuleInit {
 	 *
 	 * @return void
 	 */
-	public function verify_turnstile_on_comment_submission() : void {
+	public function verify_on_comment_submission() : void {
+		$service = $this->active_service();
+
 		if (
+			'cloudflare_turnstile' === $service &&
 			(
-				isset( $_POST['cf-turnstile-response'] ) &&
-				empty( $_POST['cf-turnstile-response'] )
-			) ||
-			(
-				! empty( $_POST['cf-turnstile-response'] ) &&
-				false === json_decode( $_POST['cf-turnstile-response'] )['success']
+				(
+					isset( $_POST['cf-turnstile-response'] ) &&
+					empty( $_POST['cf-turnstile-response'] )
+				) ||
+				(
+					! empty( $_POST['cf-turnstile-response'] ) &&
+					false === json_decode( $_POST['cf-turnstile-response'] )['success']
+				)
 			)
 		) {
 			wp_die(__('Captcha verification failed. Please try again.', 'onecaptcha'));
