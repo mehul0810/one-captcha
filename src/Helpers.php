@@ -182,6 +182,7 @@ class Helpers {
 	 * @return array
 	 */
 	public static function get_active_service_credentials() {
+		$settings       = self::get_settings();
 		$active_service = self::get_active_service();
 		$credentials    = $settings['credentials'] ?? [];
 
