@@ -29,7 +29,7 @@ class ModuleInit {
 	 *
 	 * @var string
 	 */
-	public string $active_service = '';
+	protected string $active_service = '';
 
 	/**
 	 * Active Service Credentials
@@ -39,7 +39,7 @@ class ModuleInit {
 	 *
 	 * @var array<string>
 	 */
-	public array $active_service_credentials = [];
+	protected array $active_service_credentials = [];
 
 	/**
 	 * Constructor.
@@ -50,13 +50,8 @@ class ModuleInit {
 	 * @return void
 	 */
 	public function __construct() {
-		$this->active_service = Helpers::get_active_service();
+		$this->active_service             = Helpers::get_active_service();
 		$this->active_service_credentials = Helpers::get_active_service_credentials();
-
-		// WordPress Core.
-		new Core\CommentForm();
-		new Core\LoginForm();
-		new Core\RegisterForm();
 	}
 
 }

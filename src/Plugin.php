@@ -63,8 +63,13 @@ final class Plugin {
 		new Includes\Actions();
 		new Includes\Filters();
 
-		// Load Modules.
+		// Init Module.
 		new Modules\ModuleInit();
+
+		// WordPress Core.
+		new Modules\Core\CommentForm();
+		new Modules\Core\LoginForm();
+		new Modules\Core\RegisterForm();
 	}
 
 	/**
