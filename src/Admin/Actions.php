@@ -47,6 +47,16 @@ class Actions {
 	 */
 	public array $service_fields = [];
 
+	/**
+	 * Get Active Service.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 *
+	 * @var string
+	 */
+	public string $active_service = '';
+
     /**
      * Constructor.
      *
@@ -58,6 +68,7 @@ class Actions {
 		$this->settings       = Helpers::get_settings();
 		$this->services       = Helpers::get_services();
 		$this->service_fields = Helpers::get_service_fields();
+		$this->active_service = Helpers::get_active_service();
 
         add_action( 'in_admin_header', [ $this, 'add_settings_header' ] );
 		add_action( 'admin_menu', [ $this, 'add_settings_page' ] );
@@ -170,8 +181,6 @@ class Actions {
 	 * @return void
 	 */
 	public function register_settings() :void {
-		$selected_service = $this->settings['service'] ?? 'cloudflare-turnstile';
-
 		// Register Settings.
 		register_setting(
 			'onecaptcha_settings_group',
@@ -200,7 +209,7 @@ class Actions {
 
 		// Loop through each captcha service and generate fields based on that.
 		foreach ( $this->services as $key => $value ) {
-			$active_class = ( $selected_service === $key ) ? 'active' : '';
+			$active_class = $this->active_service === $key ? 'active' : '';
 
 			add_settings_field(
 				"onecaptcha_{$key}_fields_group",
@@ -243,13 +252,12 @@ class Actions {
 	 * @return void
 	 */
 	public function onecaptcha_captcha_service_callback() : void {
-		$service = $this->settings['service'] ?? 'cloudflare-turnstile';
 		?>
 		<select name="onecaptcha_settings[service]" id="onecaptcha-service">
 			<?php
 			foreach ( $this->services as $key => $value ) {
 				?>
-				<option value="<?php echo esc_attr( $key ); ?>" <?php selected( $service, $key ); ?>>
+				<option value="<?php echo esc_attr( $key ); ?>" <?php selected( $this->active_service, $key ); ?>>
 					<?php echo esc_html( $value ); ?>
 				</option>
 				<?php
@@ -309,7 +317,7 @@ class Actions {
 		$output = [];
 
 		// Sanitize service.
-		$output['service'] = sanitize_text_field( $input['service'] ?? 'cloudflare-turnstile' );
+		$output['service'] = sanitize_text_field( $input['service'] ?? Helpers::get_default_service() );
 
 		// Sanitize credentials.
 		$output['credentials'] = [];
