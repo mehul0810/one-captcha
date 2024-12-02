@@ -51,4 +51,21 @@ class GoogleReCaptcha {
 		// Return response status.
 		return $response_body['success'] ?? false;
 	}
+
+	/**
+	 * Render HTML.
+	 *
+	 * @param string $site_key Site Key.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 *
+	 * @return void
+	 */
+	public static function render_html( $site_key ) : void {
+		echo sprintf(
+			'<div class="g-recaptcha" data-sitekey="%1$s"></div>',
+			$site_key
+		);
+	}
 }

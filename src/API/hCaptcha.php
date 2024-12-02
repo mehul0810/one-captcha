@@ -51,4 +51,22 @@ class hCaptcha {
 		// Return response status.
 		return $response_body['success'] ?? false;
 	}
+
+	/**
+	 * Render HTML.
+	 *
+	 * @param string $site_key Site Key.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 *
+	 * @return void
+	 */
+	public static function render_html( $site_key ) : void {
+		echo sprintf(
+			'<div class="h-captcha" data-sitekey="%1$s" data-theme="%2$s" data-error-callback="onError"></div>',
+			$site_key,
+			apply_filters( 'onecaptcha_hcaptcha_theme', 'light' )
+		);
+	}
 }

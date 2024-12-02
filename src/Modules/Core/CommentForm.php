@@ -52,11 +52,11 @@ class CommentForm extends ModuleInit {
 		$secret_key  = $credentials['secret_key'] ?? '';
 
 		if ( 'cloudflare_turnstile' === $service ) {
-			$this->render_cloudflare_turnstile_html( $site_key );
+			API\CloudflareTurnstile::render( $site_key );
 		} else if ( 'google_recaptcha' === $service ) {
-			$this->render_google_recaptcha_v2_checkbox_html( $site_key );
+			API\GoogleReCaptcha::render( $site_key );
 		} else if ( 'hcaptcha' === $service ) {
-			$this->render_hcaptcha_html( $site_key );
+			API\hCaptcha::render( $site_key );
 		}
 		echo '<div class="cf-turnstile" data-sitekey="' . esc_attr( $site_key) . '"></div>';
 	}
@@ -79,23 +79,6 @@ class CommentForm extends ModuleInit {
 		} else if ( 'hcaptcha' === $service ) {
 			$this->verify_hcaptcha_response();
 		}
-	}
-
-	/**
-	 * Render Cloudflare Turnstile HTML.
-	 *
-	 * @param string $site_key Site Key.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 *
-	 * @return void
-	 */
-	public function render_cloudflare_turnstile_html( $site_key ) : void {
-		echo sprintf(
-			'<div class="cf-turnstile" data-sitekey="%1$s"></div>',
-			$site_key
-		);
 	}
 
 	/**
@@ -125,23 +108,6 @@ class CommentForm extends ModuleInit {
 	}
 
 	/**
-	 * Render Google reCAPTCHA v2 Checkbox HTML.
-	 *
-	 * @param string $site_key Site Key.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 *
-	 * @return void
-	 */
-	public function render_google_recaptcha_v2_checkbox_html( $site_key ) : void {
-		echo sprintf(
-			'<div class="g-recaptcha" data-sitekey="%1$s"></div>',
-			$site_key
-		);
-	}
-
-	/**
 	 * Verify Google reCaptcha v2 Response.
 	 *
 	 * @since  1.0.0
@@ -165,24 +131,6 @@ class CommentForm extends ModuleInit {
 		if ( ! $response ) {
 			wp_die( __( 'Captcha verification failed. Please try again.', 'onecaptcha' ) );
 		}
-	}
-
-	/**
-	 * Render hCaptcha HTML.
-	 *
-	 * @param string $site_key Site Key.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 *
-	 * @return void
-	 */
-	public function render_hcaptcha_html( $site_key ) : void {
-		echo sprintf(
-			'<div class="h-captcha" data-sitekey="%1$s" data-theme="%2$s" data-error-callback="onError"></div>',
-			$site_key,
-			apply_filters( 'onecaptcha_hcaptcha_theme', 'light' )
-		);
 	}
 
 	/**
