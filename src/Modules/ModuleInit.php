@@ -10,6 +10,7 @@
 namespace MG\OneCaptcha\Modules;
 
 use MG\OneCaptcha\Helpers;
+use MG\OneCaptcha\Modules\Core;
 
 // Bailout, if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -17,11 +18,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Core Init
+ * Module Init
  *
  * @since 1.0.0
  */
-class Core {
+class ModuleInit {
 
 	/**
 	 * Active Service
@@ -51,6 +52,11 @@ class Core {
 	public function __construct() {
 		$this->active_service = Helpers::get_active_service();
 		$this->active_service_credentials = Helpers::get_active_service_credentials();
+
+		// WordPress Core.
+		new Core\CommentForm();
+		new Core\LoginForm();
+		new Core\RegisterForm();
 	}
 
 }

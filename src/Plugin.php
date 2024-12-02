@@ -64,9 +64,7 @@ final class Plugin {
 		new Includes\Filters();
 
 		// Load Modules.
-		new Modules\Core\CommentForm();
-		new Modules\Core\LoginForm();
-		new Modules\Core\RegisterForm();
+		new Modules\ModuleInit();
 	}
 
 	/**
