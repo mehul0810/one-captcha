@@ -25,6 +25,7 @@ class Actions {
      */
     public function __construct() {
 		add_action( 'wp_enqueue_scripts', [ $this, 'register_assets' ] );
+		add_action( 'login_enqueue_scripts', [ $this, 'register_assets' ] );
     }
 
 	/**
