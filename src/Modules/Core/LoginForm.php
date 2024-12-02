@@ -25,6 +25,7 @@ class LoginForm {
 	 */
 	public function __construct() {
 		add_action( 'login_form', [ $this, 'add_captcha_to_login_form' ] );
+		add_filter( 'authenticate', [ $this, 'verify_on_login' ], 30, 2 );
 	}
 
 	/**
@@ -48,5 +49,37 @@ class LoginForm {
 		} else if ( 'hcaptcha' === $service ) {
 			API\hCaptcha::render( $site_key );
 		}
+	}
+
+	/**
+	 * Verify on Login.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 *
+	 * @param  WP_User|WP_Error $user
+	 * @param  string           $username
+	 * @param  string           $password
+	 *
+	 * @return WP_User|WP_Error
+	 */
+	public function verify_on_login( $user, $username, $password ) : WP_User|WP_Error {
+		$service     = Helpers::get_active_service();
+		$credentials = Helpers::get_active_service_credentials();
+		$secret_key  = $credentials['secret_key'] ?? '';
+
+		if ( 'cloudflare_turnstile' === $service ) {
+			$response = API\CloudflareTurnstile::verify( $secret_key );
+		} else if ( 'google_recaptcha' === $service ) {
+			$response = API\GoogleReCaptcha::verify( $secret_key );
+		} else if ( 'hcaptcha' === $service ) {
+			$response = API\hCaptcha::verify( $secret_key );
+		}
+
+		if ( ! $response ) {
+			return new \WP_Error( 'onecaptcha_error', esc_html__( 'Please complete the captcha.', 'one-captcha' ) );
+		}
+
+		return $user;
 	}
 }
