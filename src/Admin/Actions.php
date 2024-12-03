@@ -85,6 +85,16 @@ class Actions {
 	 * @return void
 	 */
 	public function add_settings_header() : void {
+		$current_screen = get_current_screen();
+
+		// Bailout, if not on the settings page.
+		if (
+			$current_screen &&
+			$current_screen->base !== 'settings_page_onecaptcha'
+		) {
+			return;
+		}
+
 		$logo_svg = '<svg xmlns="http://www.w3.org/2000/svg" width="240" height="60" viewBox="0 0 693 140" fill="none">
 		<g clip-path="url(#clip0_706_2)">
 		<rect width="693" height="140" fill="white"/>
@@ -103,7 +113,7 @@ class Actions {
 		?>
 		<div class="onecaptcha-header">
 			<div class="onecaptcha-logo">
-				<?php echo $logo_svg; ?>
+				<?php echo Helpers::sanitize_svg_code( $logo_svg ); ?>
 			</div>
 			<div class="onecaptcha-extra">
 				<p class="onecaptcha-version">
