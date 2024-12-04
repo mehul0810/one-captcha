@@ -11,6 +11,7 @@ const config = {
 	mode,
 	entry: {
 		admin: [ './assets/src/scss/admin.scss', './assets/src/js/admin.js' ],
+		login: [ './assets/src/scss/login.scss' ],
 	},
 	output: {
 		path: path.join(__dirname, 'assets/dist/'),

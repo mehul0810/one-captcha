@@ -25,7 +25,7 @@ class Actions {
      */
     public function __construct() {
 		add_action( 'wp_enqueue_scripts', [ $this, 'register_assets' ] );
-		add_action( 'login_enqueue_scripts', [ $this, 'register_assets' ] );
+		add_action( 'login_enqueue_scripts', [ $this, 'register_login_assets' ] );
     }
 
 	/**
@@ -37,6 +37,32 @@ class Actions {
 	 * @return void
 	 */
 	public function register_assets() {
+		$this->load_common_assets();
+	}
+
+	/**
+	 * Register Assets.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 *
+	 * @return void
+	 */
+	public function register_login_assets() {
+		$this->load_common_assets();
+
+		wp_enqueue_style( 'onecaptcha-login', ONECAPTCHA_PLUGIN_URL . 'assets/dist/css/login.css', [], ONECAPTCHA_VERSION );
+	}
+
+	/**
+	 * Load Common Assets.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 *
+	 * @return void
+	 */
+	public function load_common_assets() {
 		$active_service = Helpers::get_active_service();
 
 		// Load API script based on active service.
