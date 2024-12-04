@@ -52,11 +52,11 @@ class CommentForm extends ModuleInit {
 		$secret_key  = $credentials['secret_key'] ?? '';
 
 		if ( 'cloudflare_turnstile' === $service ) {
-			API\CloudflareTurnstile::render( $site_key );
+			API\CloudflareTurnstile::render_html( $site_key );
 		} else if ( 'google_recaptcha' === $service ) {
-			API\GoogleReCaptcha::render( $site_key );
+			API\GoogleReCaptcha::render_html( $site_key );
 		} else if ( 'hcaptcha' === $service ) {
-			API\hCaptcha::render( $site_key );
+			API\hCaptcha::render_html( $site_key );
 		}
 		echo '<div class="cf-turnstile" data-sitekey="' . esc_attr( $site_key) . '"></div>';
 	}
@@ -91,11 +91,11 @@ class CommentForm extends ModuleInit {
 	 */
 	public function verify_cloudflare_turnstile_response() : void {
 		// Get token from POST request.
-		$token = $_POST['cf-turnstile-response'] ?? '';
+		$token = isset( $_POST['cf-turnstile-response'] ) ? sanitize_text_field( wp_unslash( $_POST['cf-turnstile-response'] ) ) : '';
 
 		// Bailout, if token is empty.
 		if ( empty( $token ) ) {
-			wp_die( __( 'Captcha verification failed. Please try again.', 'onecaptcha' ) );
+			wp_die( esc_html__( 'Captcha verification failed. Please try again.', 'onecaptcha' ) );
 		}
 
 		// Verify Cloudflare Turnstile Captcha.
@@ -103,7 +103,7 @@ class CommentForm extends ModuleInit {
 
 		// Bailout, if response is false.
 		if ( ! $response ) {
-			wp_die( __( 'Captcha verification failed. Please try again.', 'onecaptcha' ) );
+			wp_die( esc_html__( 'Captcha verification failed. Please try again.', 'onecaptcha' ) );
 		}
 	}
 
@@ -117,11 +117,11 @@ class CommentForm extends ModuleInit {
 	 */
 	public function verify_google_recaptcha_v2_response() : void {
 		// Get token from POST request.
-		$captcha_response = $_POST['g-recaptcha-response'] ?? '';
+		$captcha_response = isset( $_POST['g-recaptcha-response'] ) ? sanitize_text_field( wp_unslash( $_POST['g-recaptcha-response'] ) ) : '';
 
 		// Bailout, if response is empty.
 		if ( empty( $captcha_response ) ) {
-			wp_die( __( 'Captcha verification failed. Please try again.', 'onecaptcha' ) );
+			wp_die( esc_html__( 'Captcha verification failed. Please try again.', 'onecaptcha' ) );
 		}
 
 		// Verify Google ReCaptcha.
@@ -129,7 +129,7 @@ class CommentForm extends ModuleInit {
 
 		// Bailout, if response is false.
 		if ( ! $response ) {
-			wp_die( __( 'Captcha verification failed. Please try again.', 'onecaptcha' ) );
+			wp_die( esc_html__( 'Captcha verification failed. Please try again.', 'onecaptcha' ) );
 		}
 	}
 
@@ -143,11 +143,11 @@ class CommentForm extends ModuleInit {
 	 */
 	public function verify_hcaptcha_response() : void {
 		// Get token from POST request.
-		$captcha_response = $_POST['h-captcha-response'] ?? '';
+		$captcha_response = isset( $_POST['h-recaptcha-response'] ) ? sanitize_text_field( wp_unslash( $_POST['h-recaptcha-response'] ) ) : '';
 
 		// Bailout, if response is empty.
 		if ( empty( $captcha_response ) ) {
-			wp_die( __( 'Captcha verification failed. Please try again.', 'onecaptcha' ) );
+			wp_die( esc_html__( 'Captcha verification failed. Please try again.', 'onecaptcha' ) );
 		}
 
 		// Verify hCaptcha.
@@ -155,7 +155,7 @@ class CommentForm extends ModuleInit {
 
 		// Bailout, if response is false.
 		if ( ! $response ) {
-			wp_die( __( 'Captcha verification failed. Please try again.', 'onecaptcha' ) );
+			wp_die( esc_html__( 'Captcha verification failed. Please try again.', 'onecaptcha' ) );
 		}
 	}
 }
