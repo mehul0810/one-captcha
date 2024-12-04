@@ -68,13 +68,13 @@ if ( inProduction ) {
 
 	// POT file.
 	wpPot( {
-		package: 'One Captcha',
-		domain: 'one-captcha',
-		destFile: 'languages/one-captcha.pot',
+		package: 'OneCaptcha',
+		domain: 'onecaptcha',
+		destFile: 'languages/onecaptcha.pot',
 		relativeTo: './',
 		src: [ './**/*.php', '!./includes/libraries/**/*', '!./vendor/**/*' ],
-		bugReport: 'https://github.com/mehul0810/one-captcha/issues/new',
-		team: 'PerformWP <hello@performwp.com>',
+		bugReport: 'https://github.com/mehul0810/onecaptcha/issues/new',
+		team: 'Mehul Gohil <hello@mehulgohil.com>',
 	} );
 }
 

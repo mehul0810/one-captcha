@@ -1,6 +1,6 @@
 {
-	"name": "mehulgohil/one-captcha",
-	"description": "One Captcha is a WordPress plugin that acts as a bridge between the WordPress plugins and Captcha services",
+	"name": "mehulgohil/onecaptcha",
+	"description": "OneCaptcha is a WordPress plugin that acts as a bridge between the WordPress plugins and Captcha services",
 	"authors": [
 		{
 			"name": "Mehul Gohil",
