@@ -283,4 +283,34 @@ class Helpers {
 		}
    }
 
+   /**
+	* Allowed HTML for output escaping.
+	*
+	* @since  1.0.0
+	* @access public
+	*
+	* @return array
+	*/
+   public static function allowed_html() : array {
+		return [
+			'div'    => [
+				'class' => [],
+				'id'    => [],
+			],
+			'input'  => [
+				'type'  => [],
+				'name'  => [],
+				'value' => [],
+				'class' => [],
+			],
+			'label'  => [
+				'for'   => [],
+				'class' => [],
+			],
+			'span'   => [
+				'class' => [],
+			],
+		];
+   }
+
 }
