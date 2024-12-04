@@ -63,10 +63,18 @@ class hCaptcha {
 	 * @return void
 	 */
 	public static function render_html( $site_key ) : void {
+		/**
+		 * This filter is used to update the hCaptcha theme.
+		 *
+		 * @since 1.0.0
+		 */
+		$theme = apply_filters( 'onecaptcha_hcaptcha_theme', 'light' );
+
+		// Render hCaptcha HTML.
 		echo sprintf(
 			'<div class="h-captcha" data-sitekey="%1$s" data-theme="%2$s" data-error-callback="onError"></div>',
-			$site_key,
-			apply_filters( 'onecaptcha_hcaptcha_theme', 'light' )
+			esc_html( $site_key ),
+			esc_html( $theme )
 		);
 	}
 }

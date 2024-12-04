@@ -48,6 +48,16 @@ class Actions {
 	public array $service_fields = [];
 
 	/**
+	 * Allowed HTML Tags.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 *
+	 * @var array<string, mixed>
+	 */
+	public array $allowed_html = [];
+
+	/**
 	 * Get Active Service.
 	 *
 	 * @since  1.0.0
@@ -69,6 +79,7 @@ class Actions {
 		$this->services       = Helpers::get_services();
 		$this->service_fields = Helpers::get_service_fields();
 		$this->active_service = Helpers::get_active_service();
+		$this->allowed_html   = Helpers::get_allowed_html();
 
         add_action( 'in_admin_header', [ $this, 'add_settings_header' ] );
 		add_action( 'admin_menu', [ $this, 'add_settings_page' ] );
@@ -113,11 +124,11 @@ class Actions {
 		?>
 		<div class="onecaptcha-header">
 			<div class="onecaptcha-logo">
-				<?php echo Helpers::sanitize_svg_code( $logo_svg ); ?>
+				<?php echo Helpers::sanitize_svg_code( $logo_svg ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 			</div>
 			<div class="onecaptcha-extra">
 				<p class="onecaptcha-version">
-					<?php echo ONECAPTCHA_VERSION; ?>
+					<?php echo esc_html( ONECAPTCHA_VERSION ); ?>
 				</p>
 			</div>
 		</div>
@@ -286,7 +297,7 @@ class Actions {
 	 * @return void
 	 */
 	public function onecaptcha_cloudflare_turnstile_fields_group_callback() : void {
-		echo Helpers::display_settings_field( 'cloudflare_turnstile' );
+		echo wp_kses( Helpers::display_settings_field( 'cloudflare_turnstile' ), $this->allowed_html );
 	}
 
 	/**
@@ -298,7 +309,7 @@ class Actions {
 	 * @return void
 	 */
 	public function onecaptcha_google_recaptcha_fields_group_callback() : void {
-		echo Helpers::display_settings_field( 'google_recaptcha' );
+		echo wp_kses( Helpers::display_settings_field( 'google_recaptcha' ), $this->allowed_html );
 	}
 
 	/**
@@ -310,7 +321,7 @@ class Actions {
 	 * @return void
 	 */
 	public function onecaptcha_hcaptcha_fields_group_callback() : void {
-		echo Helpers::display_settings_field( 'hcaptcha' );
+		echo wp_kses( Helpers::display_settings_field( 'hcaptcha' ), $this->allowed_html );
 	}
 
 	/**

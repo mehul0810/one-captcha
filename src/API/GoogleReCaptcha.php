@@ -65,7 +65,7 @@ class GoogleReCaptcha {
 	public static function render_html( $site_key ) : void {
 		echo sprintf(
 			'<div class="g-recaptcha" data-sitekey="%1$s"></div>',
-			$site_key
+			esc_html( $site_key )
 		);
 	}
 }

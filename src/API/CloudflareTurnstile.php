@@ -64,7 +64,7 @@ class CloudflareTurnstile {
 	public static function render_html( $site_key ) : void {
 		echo sprintf(
 			'<div class="cf-turnstile" data-sitekey="%1$s"></div>',
-			$site_key
+			esc_html( $site_key )
 		);
 	}
 }
