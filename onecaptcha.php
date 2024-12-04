@@ -8,12 +8,12 @@
  * @license           GPL-2.0-or-later
  *
  * @wordpress-plugin
- * Plugin Name:       OneCaptcha — Universal Captcha Plugin
+ * Plugin Name:       OneCaptcha — Integrate All Popular Captcha Services
  * Plugin URI:        https://mehulgohil.com/products/onecaptcha/
  * Description:       OneCaptcha is a WordPress plugin that acts as a bridge between the WordPress plugins and Captcha services
  * Version:           1.0.0
  * Requires at least: 4.8
- * Requires PHP:      8.1
+ * Requires PHP:      7.4
  * Author:            Mehul Gohil
  * Author URI:        https://mehulgohil.com
  * Text Domain:       onecaptcha
