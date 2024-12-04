@@ -235,49 +235,52 @@ class Helpers {
 	 * @return string
 	 */
 	public static function sanitize_svg_code( $svg_code ) {
-	   if ( empty( $svg_code ) ) {
-		   return new WP_Error('svg_sanitization_error', __('Empty SVG code.', 'text-domain'));
-	   }
+		// Bailout, if SVG code is empty.
+		if ( empty( $svg_code ) ) {
+			return new WP_Error( 'svg_sanitization_error', esc_html__( 'Empty SVG code.', 'onecaptcha' ) );
+		}
 
-	   // Use DOMDocument to parse the SVG
-	   $dom = new \DOMDocument();
+		// Use DOMDocument to parse the SVG.
+		$dom = new \DOMDocument();
 
-	   // Disable external entity loading for security
-	   libxml_use_internal_errors(true);
-	   libxml_disable_entity_loader(true);
+		// Disable external entity loading for security.
+		libxml_use_internal_errors(true);
+		libxml_disable_entity_loader(true);
 
-	   try {
-		   // Load the SVG string
-		   $dom->loadXML($svg_code, LIBXML_NOENT | LIBXML_DTDLOAD | LIBXML_NOERROR | LIBXML_NOWARNING);
+		try {
+			// Load the SVG string.
+			$dom->loadXML( $svg_code, LIBXML_NOENT | LIBXML_DTDLOAD | LIBXML_NOERROR | LIBXML_NOWARNING );
 
-		   // Ensure it's an SVG file
-		   if ($dom->documentElement->tagName !== 'svg') {
-			   return new WP_Error('svg_sanitization_error', __('The file is not a valid SVG.', 'text-domain'));
-		   }
+			// Ensure it's an SVG file.
+			if ( $dom->documentElement->tagName !== 'svg' ) {
+				return new WP_Error( 'svg_sanitization_error', esc_html__( 'The file is not a valid SVG.', 'onecaptcha' ) );
+			}
 
-		   // Remove potentially harmful attributes
-		   $allowed_attributes = ['xmlns', 'viewBox', 'width', 'height', 'fill'];
-		   foreach ($dom->documentElement->attributes as $attribute) {
-			   if (!in_array($attribute->name, $allowed_attributes, true)) {
-				   $dom->documentElement->removeAttribute($attribute->name);
-			   }
-		   }
+			// Remove potentially harmful attributes.
+			$allowed_attributes = [ 'xmlns', 'viewBox', 'width', 'height', 'fill' ];
+			foreach ( $dom->documentElement->attributes as $attribute ) {
+				if ( ! in_array($attribute->name, $allowed_attributes, true ) ) {
+					$dom->documentElement->removeAttribute( $attribute->name );
+				}
+			}
 
-		   // Remove script elements or any non-SVG tags
-		   $xpath = new \DOMXPath($dom);
-		   $scripts = $xpath->query('//script');
-		   foreach ($scripts as $script) {
-			   $script->parentNode->removeChild($script);
-		   }
+			// Remove script elements or any non-SVG tags.
+			$xpath   = new \DOMXPath( $dom );
+			$scripts = $xpath->query( '//script' );
 
-		   // Return sanitized SVG code
-		   return $dom->saveXML($dom->documentElement);
-	   } catch (Exception $e) {
-		   return new WP_Error('svg_sanitization_error', __('Failed to sanitize SVG code.', 'text-domain'));
-	   } finally {
-		   libxml_clear_errors();
-		   libxml_use_internal_errors(false);
-	   }
+			// Remove all script tags.
+			foreach ( $scripts as $script ) {
+				$script->parentNode->removeChild( $script );
+			}
+
+			// Return sanitized SVG code.
+			return $dom->saveXML( $dom->documentElement );
+		} catch ( Exception $e ) {
+			return new WP_Error( 'svg_sanitization_error', esc_html__( 'Failed to sanitize SVG code.', 'onecaptcha' ) );
+		} finally {
+			libxml_clear_errors();
+			libxml_use_internal_errors( false );
+		}
    }
 
 }
