@@ -1,0 +1,65 @@
+# Copyright (C) 2024 OneCaptcha
+# This file is distributed under the same license as the OneCaptcha package.
+msgid ""
+msgstr ""
+"Project-Id-Version: OneCaptcha\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language-Team: Mehul Gohil <hello@mehulgohil.com>\n"
+"POT-Creation-Date: 2024-12-04 18:51+0000\n"
+"Report-Msgid-Bugs-To: https://github.com/mehul0810/onecaptcha/issues/new\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/Helpers.php:83, src/Helpers.php:97, src/Helpers.php:111
+msgid "Site Key"
+msgstr ""
+
+#: src/Helpers.php:86, src/Helpers.php:92, src/Helpers.php:100, src/Helpers.php:106, src/Helpers.php:114, src/Helpers.php:120
+msgid "The site key is used to identify your website to the captcha service."
+msgstr ""
+
+#: src/Helpers.php:89, src/Helpers.php:103, src/Helpers.php:117
+msgid "Secret Key"
+msgstr ""
+
+#: src/Admin/Actions.php:137, src/Admin/Actions.php:138
+msgid "OneCaptcha"
+msgstr ""
+
+#: src/Admin/Actions.php:206
+msgid "Captcha Settings"
+msgstr ""
+
+#: src/Admin/Actions.php:248
+msgid "Welcome to OneCaptcha — Your All-in-One Captcha Solution!"
+msgstr ""
+
+#: src/Admin/Actions.php:251
+msgid "OneCaptcha empowers you to protect your WordPress site against spam and bots by integrating seamlessly with a wide range of captcha services, including Cloudflare Turnstile, Google ReCaptcha, and hCaptcha. With OneCaptcha, you can safeguard common spam-prone areas across your website, whether you’re using contact forms, comments, login pages, or other plugins that require bot protection."
+msgstr ""
+
+#: src/Admin/Filters.php:42
+msgid "Settings"
+msgstr ""
+
+#: src/Admin/Filters.php:47
+msgid "Support"
+msgstr ""
+
+#: src/Modules/Core/CommentForm.php:98, src/Modules/Core/CommentForm.php:106, src/Modules/Core/CommentForm.php:124, src/Modules/Core/CommentForm.php:132, src/Modules/Core/CommentForm.php:150, src/Modules/Core/CommentForm.php:158
+msgid "Captcha verification failed. Please try again."
+msgstr ""
+
+#: src/Modules/Core/LoginForm.php:90
+msgid "Please complete the captcha."
+msgstr ""
+
+#: src/Modules/Core/RegisterForm.php:91, src/Modules/Core/RegisterForm.php:84, src/Modules/Core/RegisterForm.php:77
+msgid "Please complete the CAPTCHA challenge."
+msgstr ""

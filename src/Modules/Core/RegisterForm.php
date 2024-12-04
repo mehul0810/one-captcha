@@ -74,21 +74,21 @@ class RegisterForm {
 			$response  = API\CloudflareTurnstile::verify( $challenge, $secret_key );
 
 			if ( ! $response->success ) {
-				$errors->add( 'onecaptcha_error', esc_html__( 'Please complete the CAPTCHA challenge.', 'one-captcha' ) );
+				$errors->add( 'onecaptcha_error', esc_html__( 'Please complete the CAPTCHA challenge.', 'onecaptcha' ) );
 			}
 		} else if ( 'google_recaptcha' === $service ) {
 			$challenge = $_POST['g-recaptcha-response'] ?? '';
 			$response  = API\GoogleReCaptcha::verify( $challenge, $secret_key );
 
 			if ( ! $response->success ) {
-				$errors->add( 'onecaptcha_error', esc_html__( 'Please complete the CAPTCHA challenge.', 'one-captcha' ) );
+				$errors->add( 'onecaptcha_error', esc_html__( 'Please complete the CAPTCHA challenge.', 'onecaptcha' ) );
 			}
 		} else if ( 'hcaptcha' === $service ) {
 			$challenge = $_POST['h-captcha-response'] ?? '';
 			$response  = API\hCaptcha::verify( $challenge, $secret_key );
 
 			if ( ! $response->success ) {
-				$errors->add( 'onecaptcha_error', esc_html__( 'Please complete the CAPTCHA challenge.', 'one-captcha' ) );
+				$errors->add( 'onecaptcha_error', esc_html__( 'Please complete the CAPTCHA challenge.', 'onecaptcha' ) );
 			}
 		}
 

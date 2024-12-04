@@ -9,7 +9,7 @@
  *
  * @wordpress-plugin
  * Plugin Name:       OneCaptcha — Universal Captcha Plugin
- * Plugin URI:        https://mehulgohil.com/plugins/one-captcha/
+ * Plugin URI:        https://mehulgohil.com/products/onecaptcha/
  * Description:       OneCaptcha is a WordPress plugin that acts as a bridge between the WordPress plugins and Captcha services
  * Version:           1.0.0
  * Requires at least: 4.8

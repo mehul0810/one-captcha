@@ -87,7 +87,7 @@ class LoginForm {
 
 		// Bailout, if response is empty.
 		if ( ! $response ) {
-			return new \WP_Error( 'onecaptcha_error', esc_html__( 'Please complete the captcha.', 'one-captcha' ) );
+			return new \WP_Error( 'onecaptcha_error', esc_html__( 'Please complete the captcha.', 'onecaptcha' ) );
 		}
 
 		// Return user.

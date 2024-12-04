@@ -1,8 +1,8 @@
 {
-  "name": "one-captcha",
+  "name": "onecaptcha",
   "version": "1.0.0",
   "description": "One Captcha is a WordPress plugin that acts as a bridge between the WordPress plugins and Captcha services",
-  "homepage": "https://github.com/mehul0810/one-captcha#readme",
+  "homepage": "https://github.com/mehul0810/onecaptcha#readme",
   "license": "GPL-2.0-or-later",
   "author": {
       "name": "Mehul Gohil",
@@ -11,11 +11,11 @@
       "role": "developer"
   },
   "bugs": {
-      "url": "https://github.com/mehul0810/one-captcha/issues"
+      "url": "https://github.com/mehul0810/onecaptcha/issues"
   },
   "repository": {
       "type": "git",
-      "url": "git+https://github.com/mehul0810/one-captcha.git"
+      "url": "git+https://github.com/mehul0810/onecaptcha.git"
   },
   "scripts": {
       "start": "wp-scripts start --mode development",
