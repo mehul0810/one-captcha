@@ -291,7 +291,7 @@ class Helpers {
 	*
 	* @return array
 	*/
-   public static function allowed_html() : array {
+   public static function get_allowed_html() : array {
 		return [
 			'div'    => [
 				'class' => [],
