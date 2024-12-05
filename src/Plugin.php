@@ -70,6 +70,7 @@ final class Plugin {
 		new Modules\Core\CommentForm();
 		new Modules\Core\LoginForm();
 		new Modules\Core\RegisterForm();
+		new Modules\Core\LostPassword();
 	}
 
 	/**
