@@ -7,9 +7,9 @@
  * @since      1.0.0
  */
 
-namespace MG\OneCaptcha\Includes;
+namespace OneCaptcha\Includes;
 
-use MG\OneCaptcha\Helpers;
+use OneCaptcha\Helpers;
 
 // Bailout, if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {

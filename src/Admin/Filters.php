@@ -7,7 +7,7 @@
  * @since      1.0.0
  */
 
-namespace MG\OneCaptcha\Admin;
+namespace OneCaptcha\Admin;
 
 // Bailout, if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {

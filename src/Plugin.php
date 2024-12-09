@@ -7,11 +7,11 @@
  * @since      1.0.0
  */
 
-namespace MG\OneCaptcha;
+namespace OneCaptcha;
 
-use MG\OneCaptcha\Includes;
-use MG\OneCaptcha\Admin;
-use MG\OneCaptcha\Modules;
+use OneCaptcha\Includes;
+use OneCaptcha\Admin;
+use OneCaptcha\Modules;
 
 // Bailout, if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {

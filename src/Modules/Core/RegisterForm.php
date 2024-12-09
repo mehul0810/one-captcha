@@ -7,11 +7,11 @@
  * @since      1.0.0
  */
 
-namespace MG\OneCaptcha\Modules\Core;
+namespace OneCaptcha\Modules\Core;
 
-use MG\OneCaptcha\Helpers;
-use MG\OneCaptcha\API;
-use MG\OneCaptcha\Modules\BaseModule;
+use OneCaptcha\Helpers;
+use OneCaptcha\API;
+use OneCaptcha\Modules\BaseModule;
 
 // Bailout, if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {

@@ -7,7 +7,7 @@
  * @since      1.0.0
  */
 
-namespace MG\OneCaptcha\API;
+namespace OneCaptcha\API;
 
 // Bailout, if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
