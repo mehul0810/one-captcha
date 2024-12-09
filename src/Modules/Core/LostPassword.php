@@ -9,7 +9,7 @@
 
 namespace MG\OneCaptcha\Modules\Core;
 
-use MG\OneCaptcha\Modules\ModuleInit;
+use MG\OneCaptcha\Modules\BaseModule;
 use MG\OneCaptcha\API;
 
 // Bailout, if accessed directly.
@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 1.0.0
  */
-class LostPassword extends ModuleInit {
+class LostPassword extends BaseModule {
 
 	/**
 	 * Constructor.

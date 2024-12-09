@@ -11,13 +11,14 @@ namespace MG\OneCaptcha\Modules\Core;
 
 use MG\OneCaptcha\Helpers;
 use MG\OneCaptcha\API;
+use MG\OneCaptcha\Modules\BaseModule;
 
 // Bailout, if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class LoginForm {
+class LoginForm extends BaseModule {
 	/**
 	 * Constructor.
 	 *
