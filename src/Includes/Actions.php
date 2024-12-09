@@ -68,13 +68,13 @@ class Actions {
 		// Load API script based on active service.
 		if ( 'cloudflare_turnstile' === $active_service ) {
 			// Load Cloudflare Turnstile API script.
-			wp_enqueue_script( 'onecaptcha-clouflare-turnstile-api', 'https://challenges.cloudflare.com/turnstile/v0/api.js', [], ONECAPTCHA_VERSION, false );
+			wp_enqueue_script( 'onecaptcha-clouflare-turnstile-api', 'https://challenges.cloudflare.com/turnstile/v0/api.js', [], ONECAPTCHA_VERSION, true );
 		} else if ( 'google_recaptcha' === $active_service ) {
 			// Load Google reCAPTCHA API v3 script.
-			wp_enqueue_script( 'onecaptcha-google-recaptcha-api', 'https://www.google.com/recaptcha/api.js', [], ONECAPTCHA_VERSION, false );
+			wp_enqueue_script( 'onecaptcha-google-recaptcha-api', 'https://www.google.com/recaptcha/api.js', [], ONECAPTCHA_VERSION, true );
 		} else if ( 'hcaptcha' === $active_service ) {
 			// Load hCaptcha API script.
-			wp_enqueue_script( 'onecaptcha-hcaptcha-api', 'https://js.hcaptcha.com/1/api.js', [], ONECAPTCHA_VERSION, false );
+			wp_enqueue_script( 'onecaptcha-hcaptcha-api', 'https://js.hcaptcha.com/1/api.js', [], ONECAPTCHA_VERSION, true );
 		}
 	}
 }
